@@ -1,7 +1,7 @@
 # Threejs-voxel
 I decided to make a voxel model and use three.js to render it.
 
-![Model Preview](static/model-preview.gif)
+![Model Preview](static/model.gif)
 
 ## Building
 
