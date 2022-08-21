@@ -7,9 +7,16 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 var model
 var clicked = false
 
+// loading glb model
+const loader = new GLTFLoader() 
+loader.load('model.glb', function (gltf) {
+    model = gltf.scene
+    model.position.y = -1
+    scene.add(gltf.scene)
+})
+
 // compresses model at the  cost of some decoding time
 const dracoLoader = new DRACOLoader()
-const loader = new GLTFLoader()
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
 dracoLoader.setDecoderConfig({ type: 'js' })
 loader.setDRACOLoader(dracoLoader)
@@ -49,19 +56,13 @@ container.addEventListener('mouseup', function (event) {
 })
 
 // lighting
-const ambient = new THREE.AmbientLight(0xa0a0fc, 1.2)
+const ambient = new THREE.AmbientLight(0xa0a0fc, 4)
 scene.add(ambient)
 
-const sunLight = new THREE.PointLight(0xffd178, 1.0)
-sunLight.position.set(-10, 12, 5)
-scene.add(sunLight)
-
-// loading glb model
-loader.load('model.glb', function (gltf) {
-    model = gltf.scene
-    model.position.y = -1
-    scene.add(gltf.scene)
-})
+const direct = new THREE.PointLight(0xffa6fc, 1)
+direct.position.x = 2
+direct.position.z = 2
+scene.add(direct)
 
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement)
